@@ -10,3 +10,4 @@ Then write your notes in the renamed `uni.tex` file.
 
 If you're new to LaTeX, check out [Overleaf](http://overleaf.com), an online LaTeX environment where you can edit and render your documents.
 They also have a very useful [getting started guide](http://www.overleaf.com/help/18-how-do-i-use-overleaf).
+[Click here](https://www.overleaf.com/docs?snip_uri=http://jakehofman.com/tmp/template.zip) to use Overleaf to edit this template in your browser.
