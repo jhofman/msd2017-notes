@@ -8,5 +8,5 @@ Open the `template.tex` file and follow these three main steps:
 
 Then write your notes in the renamed `uni.tex` file.
 
-If you're new to LaTeX, check out [Overleaf](http://overleaf.com), an online LaTeX where you can edit and render your documents.
+If you're new to LaTeX, check out [Overleaf](http://overleaf.com), an online LaTeX environment where you can edit and render your documents.
 They also have a very useful [getting started guide](http://www.overleaf.com/help/18-how-do-i-use-overleaf).
