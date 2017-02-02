@@ -2,9 +2,9 @@ Use this template to create your notes.
 
 Open the `template.tex` file and follow these three main steps:
 
-   1. Edit the lecture title
-   2. Edit your name and the date
-   3. Rename `uni.tex` to match your uni, edit the filename accordingly below, and put your notes in this file
+   1. Edit the lecture title.
+   2. Edit your name and the date.
+   3. Rename `uni.tex` to match your uni (e.g., `jmh2045.tex`), edit the filename accordingly below, and put your notes in this file.
 
 Then write your notes in the renamed `uni.tex` file.
 
