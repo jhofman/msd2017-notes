@@ -161,4 +161,41 @@ Problem: Given 2 tables A and B with a common columns say ID, we need to merge t
 
 \section*{Part2 - Data Manipulation in R using tidyverse}
 
-I will send in the next pull request. I'm sorry I wasn't aware of the 5pm deadline.
+In this section, I'll try to augment the content of slides with additional information discussed in class. The notes are referenced by slide number of the updated slides on GitHub repository:
+
+\begin{itemize}
+    \item Slide \#5:
+    \begin{itemize}
+        \item factor variables are coded as numeric in the background and appears as labels to the user. we can do str(variable\_name) to know the real structure.
+    \end{itemize}
+    
+    \item Slide \#6:
+    \begin{itemize}
+        \item dataframes are different from matrices in the same way as lists are from vectors. matrices accept data of single type but different columns of dataframes can have different types of data.
+    \end{itemize}
+    
+    \item Slide \#10:
+    \begin{itemize}
+        \item In this slide, N: \#rows, K: \#columns
+        \item for-loops are constructs in R but we should try to avoid them as much as possibe. These functions give faster ways of acheiving the same objective as for-loops. If you're using a for-loop, you're probably missing a trick.
+        \item All functions, except group\_by, are not inplace, i.e. they won't affect the original dataframe but return a new dataframe which can be stored different or overwritten on the old dataframe.
+    \end{itemize}
+    
+    \item Slide \#11:
+    \begin{itemize}
+        \item Note that here "start\_station\_name" is not a variable in the R environment but the name of a column. 
+        \item filter would first try to parse this as a column in the dataframe trips and if not found then it will look into the global environment. So you've to be careful if you have variable names which are same as column names.
+        \item the same concept applies to other functinos as well.
+    \end{itemize}
+    
+\end{itemize}
+
+Finally, some notes on the "wierdness" of R over general programming languages:
+
+\begin{itemize}
+    \item it uses "$<-$" as an assignment operator and not "=". Even "=" works but there is some difference in the background.
+    \item there are some datasets which are lurking in the background but you don't see them in your environment unless you explicitly save them in a variable. For example "head(iris)" will give you the top 6 rows of the iris dataset which might not even by in your environment. "iris $<-$ iris" will save it in your environment as well.
+    \item "\$" can be used to index columns but try to avoid it
+    \item comparison operators "\&" and "\&\&" are different. Former works vectorized, i.e. element by element while later works considering every operand as a single element.
+    \item \%$>$\% are R's version of pipes we saw in unix
+\end{itemize} 
