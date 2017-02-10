@@ -7,22 +7,40 @@
  
 \textbf{NOTES}
 
-\textbf{1.Computational Tractability} \\
-- The optimal value could be calculated in a reasonable amount of time.
+\textbf{1.Computational Tractability} 
+\begin{itemize}
+\item 
+The optimal value could be calculated in a reasonable amount of time.
+\end{itemize}
 
-\textbf{2.Asymptotic order of growth --- Big O notation} \\
-- It is used to understand approximation when variables go to infinite. \\
-- In computer science, big O notation is usually used to evaluate algorithms on their running time and space as the input size grows.
+\textbf{2.Asymptotic order of growth --- Big O notation}
+\begin{itemize}
+\item
+It is used to understand approximation when variables go to infinite. 
+\item
+In computer science, big O notation is usually used to evaluate algorithms on their running time and space as the input size grows.
+\end{itemize}
 
-\textbf{3.Common running times} \\
-- It depends on data structure and algorithms.
+\textbf{3.Common running times} 
+\begin{itemize}
+\item 
+It depends on data structure and algorithms.
+\end{itemize}
 
-\textbf{4.Running time in size n input} \\
-- brute force algorithm : $2^{n}$ $\Rightarrow$ exponential \\
-- $c n^{d}$ ($c>0$ $d>0$) $\Rightarrow$ polynomial\\
+\textbf{4.Running time in size n input}
+\begin{itemize}
+\item 
+brute force algorithm : $2^{n}$ $\Rightarrow$ exponential 
+\item
+$c n^{d}$ ($c>0$ $d>0$) $\Rightarrow$ polynomial
+\item
 It is theoretical step here, but does not perform well in practice purpose. \\ 
 Constant matter: $\underbrace{20 n^{100}}_{polynomial}$ vs $\underbrace{n^{1+0.02 lgn}}_{not polynominal, but still better}$ $\Rightarrow$ So notice that constant cannot be ignored! \\
-- order of running time: $n<nlogn<n^{2}<n^{3}<1.5 n^{3}<2^{n}<n!$
+\item
+Order of running time: $n<nlogn<n^{2}<n^{3}<1.5 n^{3}<2^{n}<n!$
+\end{itemize}
+
+
 
 \textbf{5.Runtime analysis}
 \begin{enumerate}
@@ -74,6 +92,7 @@ If f(n) is both upper bound and lower bound of T(n) [with different c], we say f
 Eg. For the same example $\Rightarrow$ $T(n)= \Theta(n^{2})$
 \end{enumerate}
 
+\pagebreak
 \textbf{7. Rules of Thumb} 
 \begin{enumerate}
 \item 
@@ -84,7 +103,6 @@ $O(log_{a}^{n}) = O(log_{b}^{n})$,  $a, b>0$
 For every $r>1, d>0$ $\Rightarrow$ $n^{d} = O(r^{n})$ 
 \end{enumerate}
 
-\pagebreak
 \textbf{8. Examples}
 \begin{enumerate}
 \item 
@@ -112,5 +130,27 @@ Eg. Count the number of triangles in graphs
 $O(logn)$\\
 Eg. Searching sorted array; Binary Tree Search(Balance Tree)
 \end{enumerate}
+
+\pagebreak
+\textbf{9.Hash table}
+\begin{itemize}
+\item 
+It is a data structure used to implement an associative array, a structure that can map keys to values. It adopts hash function to compute an index into an array of buckets or slots with values. (Figure5)
+\begin{figure}
+\centering
+\includegraphics[width=0.3\textwidth]{hash_table.png}
+\caption{\label{fig:Hash Table}Hash Table.}
+\end{figure}
+\item
+Hash collisions are unavoidable in practice because hashing a random subset of a large set of possible keys often occurs.
+\item
+Eg. Query problem:
+\begin{itemize}
+\item 
+Sorting $\Rightarrow$ $O(nlogn)$
+\item
+Hash Table $\Rightarrow$ $O(n)$
+\end{itemize}
+\end{itemize}
 
 
