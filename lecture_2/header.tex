@@ -1,0 +1,58 @@
+%----------------------------------------
+% Preamble to set up the document
+%----------------------------------------
+\documentclass{article}
+
+% set up packages
+\usepackage{graphicx}  % required to insert images
+\usepackage{hyperref}  % for hyperlinks
+\usepackage[svgnames]{xcolor}  % to change hyperlink colors
+\colorlet{linkcolour}{DarkBlue}
+\hypersetup{colorlinks=true, linkcolor=linkcolour, citecolor=linkcolour, urlcolor=linkcolour,}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+
+% magic to include figures/ subdirectories in graphicx search path
+% http://tex.stackexchange.com/a/172327
+\usepackage{subfiles}
+\makeatletter
+\let\org@subfile\subfile
+\renewcommand*{\subfile}[1]{%
+  \filename@parse{#1}% LaTeX's file name parser
+  \expandafter
+  \graphicspath\expandafter{\expandafter{\filename@area}}%
+  \org@subfile{#1}%
+}
+\makeatother
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% use a sans serif font
+\renewcommand{\familydefault}{\sfdefault}
+
+\title{
+Lecture 2: Introduction to Counting \\  % Lecture title
+Modeling Social Data, Spring 2017 \\   % Course title
+Columbia University                    % School
+}
+
+\date{January 27, 2017}                % Lecture date
+
+
+%----------------------------------------
+% Main document
+%----------------------------------------
+\begin{document}
+
+\maketitle
+
+%----------------------------------------
+% Include each uni.tex as a subfile
+%----------------------------------------
+
