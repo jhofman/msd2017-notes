@@ -1,5 +1,5 @@
 lecture:=$(shell basename `pwd`).tex
-template:='\pagebreak \\newpage \\noindent\Huge{Notes from uni} \\normalsize \subfile{uni/uni.tex}'
+template:='\pagebreak \\newpage \\noindent\Huge{Notes from uni} \\normalsize \setcounter{section}{0} \subfile{uni/uni.tex}'
 
 all:
 	cat header.tex > $(lecture)
