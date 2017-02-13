@@ -1,0 +1,87 @@
+%----------------------------------------
+% Write your notes here
+%----------------------------------------
+\section{What is Hadoop?}
+\begin{itemize}
+	\item An abstraction for parallel data analysis
+	\item consists of many subprojects
+		\subitem - we will mostly focus on Map/Reduce
+	\item deals with distributed data
+	\item born out of open source web indexing, crawling, and searching software
+	\item Map/Reduce revealed by Google in 2004
+		\subitem - added to Hadoop, which is adopted by Yahoo! in 2006
+\end{itemize}
+
+\section{Why do we need Map/Reduce?}
+\begin{itemize}
+	\item There is still a lot of latency when dealing with a lot of data
+	\item Read speed of commodity hard disk is about 1 TB/4hrs
+	\item Using Hadoop, 1PB can be sorted in 16.5 hours! \href{bit.ly/petabytesort}{petabytesort}
+\end{itemize}
+
+\section{Map/Reduce} 
+\begin{itemize}
+	\item break into parts
+	\item process in parallel
+	\item combine results
+\end{itemize} 
+
+For example, if we wanted to count the number of occurences of each word in a book:
+\begin{enumerate} 
+	\item For every word on every page
+	\item Map to (word, count) e.g. ("cat", 1) 
+	\item Shuffle to collect all records with the same key (word)
+		\subitem hash(val) = hashVal mod number of reducers
+	\item Reduce results by adding count values for each word 
+\end{enumerate}
+
+To use Map/Reduce, you must specify the Map and Reduce steps
+
+\section{Principles}
+\begin{itemize}
+	\item move code to data
+	\item allow programs to scale transparently 
+\end{itemize}
+
+\section{Strengths}
+\begin{itemize}
+	\item batch, offline
+	\item write-once read-many
+
+\section{Introduction}
+This is where your text goes.
+If you're new to \LaTeX, check out Overleaf\footnote{\url{http://overleaf.com}}, an online \LaTeX~environment where you can edit and render your documents.
+They also have a very useful \href{http://www.overleaf.com/help/18-how-do-i-use-overleaf}{getting started guide}.
+
+Figure \ref{fig:example_figure} is an example of how to include an image.
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/example_figure.png}
+    \caption{
+      This is how to include a figure.
+      As long as you use pdflatex most file types (e.g., jpg, png, pdf) should work.}
+    \label{fig:example_figure}
+  \end{center}
+\end{figure}
+
+And here's some math:
+\begin{equation}
+  \int_{-\infty}^{+\infty} e^{-x^2} dx = \sqrt{\pi}
+\end{equation}
+
+You can also make numbered lists:
+\begin{enumerate}
+  \item Thing 1
+  \item Thing 2
+  \item etc.
+\end{enumerate}
+
+Or bulleted lists
+\begin{itemize}
+  \item Thing 1
+  \item Thing 2
+  \item etc.
+\end{itemize}
+
+It shouldn't get much more complicated than that.
