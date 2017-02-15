@@ -43,45 +43,49 @@ To use Map/Reduce, you must specify the Map and Reduce steps
 	\item allow programs to scale transparently 
 \end{itemize}
 
-\section{Strengths}
+\section{Strengths of Map/Reduce}
 \begin{itemize}
 	\item batch, offline
 	\item write-once read-many
-
-\section{Introduction}
-This is where your text goes.
-If you're new to \LaTeX, check out Overleaf\footnote{\url{http://overleaf.com}}, an online \LaTeX~environment where you can edit and render your documents.
-They also have a very useful \href{http://www.overleaf.com/help/18-how-do-i-use-overleaf}{getting started guide}.
-
-Figure \ref{fig:example_figure} is an example of how to include an image.
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{figures/example_figure.png}
-    \caption{
-      This is how to include a figure.
-      As long as you use pdflatex most file types (e.g., jpg, png, pdf) should work.}
-    \label{fig:example_figure}
-  \end{center}
-\end{figure}
-
-And here's some math:
-\begin{equation}
-  \int_{-\infty}^{+\infty} e^{-x^2} dx = \sqrt{\pi}
-\end{equation}
-
-You can also make numbered lists:
-\begin{enumerate}
-  \item Thing 1
-  \item Thing 2
-  \item etc.
-\end{enumerate}
-
-Or bulleted lists
-\begin{itemize}
-  \item Thing 1
-  \item Thing 2
-  \item etc.
+	\item simple computations
+	\item I/O bound by disk or network bandwith
 \end{itemize}
 
-It shouldn't get much more complicated than that.
+\section{Weaknesses}
+\begin{itemize}
+	\item does not work well for high performance parallel computing applications
+	\item low latency on random access
+	\item not always the right solution
+	\item difficult to find points of failure
+\end{itemize} 
+
+Before you use Map/Reduce, you should make sure it's the right tool for the job. 
+
+\section{Beware the Curse!}
+\begin{itemize}
+	\item often there is an assumption that all machines in the Map/Reduce pipeline end up with approximately the same amount of work
+	\item this is not always true
+		\subitem - not the case when working with skewed data
+		\subitem - can do clever shuffles to avoid this if there is prior knowledge of skewness in the data
+\end{itemize}
+
+\newpage
+
+\section{Examples} 
+Below are two different examples of MapReduce, taken from "Cracking the Coding Interview, 6th Ed." by G. McDowell. 
+	\subsection{WordCount} 
+	See above.
+	\begin{figure}[]
+		\begin{center} 
+			\includegraphics[width=0.5\textwidth]{figures/MR_1.png}
+			\caption{In this example, we see a graphical representation of a word count program using Map/Reduce. The Map step emits tuples of (word, count). The Shuffle step brings all corresponding words together. The Reduce step adds the counts of all the corresponding words. In the final step we have a list of tuples, each with its own word and the count of that word in the original input.}
+		\end{center}
+	\end{figure}
+
+	\subsection{Average Temperature}
+	Say you are given a list of data in the form (City, Temperature, Date). You wish to find the average temperature for each city in a given year. How would you set up the Map and Reduce steps to perform this calculation? 
+	
+	\begin{itemize}
+	\item \textbf{Map}: Given a data point, the Map step will emit a (Key, Value) tuple of the form (CityYear, [Temperature, N]). The "Key" will be a particular city and year. The "Value" will be a tuple of Temperature and N, where N indicates the associated temperature is the average of N data points. This will be important in the Reduce step. 
+	\item \textbf{Reduce}: Given a list of emitted values, the Reduce step will take the weighted average of temperatures for each CityYear, where the weights will be N.
+\end{itemize}	
