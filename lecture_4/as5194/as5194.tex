@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx} %package to manage images
+\graphicspath{ {images/} }
+
+\title{
+Lecture 4: MapReduce: Counting at Scale \\  % Lecture title
+Modeling Social Data, Spring 2017 \\   % Course title
+Columbia University                    % School
+}
+
+\author{Anant Sharma}                     % Scribe's name
+\date{February 16, 2017}                % Lecture date
+
+\begin{document}
+
+\maketitle
+
+\section{Combining and Reshaping Data}
+
+\subsection{GroupBy}
+\begin{itemize}
+    \item Can implement the split/apply/combine framework with group\_by
+    \item There are a lot of red herrings while using group\_by. We should always ungroup for performance and correctness issues. Examples can be checked in the Jupyter notebook.
+    \begin{itemize}
+        \item Ungroup for performance
+        \item Ungroup for correctness
+        \item Unintentionally overwriting columns
+        \item Tricky variable scoping(lazy variable naming)
+    \end{itemize}
+\end{itemize}
+
+\subsection{Joins}
+\begin{itemize}
+    \item There are various types of joins which can be used in different scenarios. Fortunately, we don't need to implement these joins, as there are functions in R to use them. We only need to learn which join to use in which situation.
+        \item Inner Join
+        \begin{itemize}
+            \item Returns the records which match in both the tables in some specific column
+            \item We can do an inner join on more than one data frames by nesting the joins
+            \item Symmetric - The order of the arguments doesn't matter
+        \end{itemize}
+        \item Left Join
+        \begin{itemize}
+            \item Returns all the records of the left table, even if they might not have matches with the right table
+            \item Not symmetric
+        \end{itemize}
+        \begin{itemize}
+        \end{itemize}
+        \item Right Join
+        \begin{itemize}
+            \item Complement of left join; returns all the records of the right table, even if they don't have matches with the left table
+            \item Not symmetric
+        \end{itemize}
+        \begin{itemize}
+            
+        \end{itemize}
+        \item Full Join
+        \begin{itemize}
+            \item Combines both left and right join in a way; doesn't drop any records and returns missing values for unmatched values
+            \item Symmetric
+        \end{itemize}
+        \begin{itemize}
+            
+        \end{itemize}
+        \item Anti Join
+        \begin{itemize}
+            \item Opposite of inner join; shows the rows in first table which don't have a match with the second table
+            \item Shows what's being dropped; can be checked to see if any rows were dropped from the left table(number of rows in anti-join should be zero)
+            \item Not symmetric
+        \end{itemize}
+        \begin{itemize}
+            
+        \end{itemize}
+\end{itemize}
+
+\subsection{Tidyverse}
+\begin{itemize}
+    \item Data pre-processing is a very important part of data science and one that which takes up a disproportionate amount of time. Tidyr is one R library which helps us in doing that with two functions - spread and gather. Examples can be seen in the Jupyter notebook on Github.
+    \begin{itemize}
+        \item Spread - Can convert a "long" table to a "wide" table, by specifying a column as a key and the value column, which returns one column per key, and value filled in the cells
+        \item Gather - Does the opposite operation of spread; converts a wide table to a long table
+    \end{itemize}
+\end{itemize}
+
+\section{MapReduce and Hadoop}
+
+\subsection{MapReduce}
+\begin{itemize}
+    \item It helps us to solve the split/apply/combine problem in a distributed manner.
+    \item A distributed solution is required because we can scale vertically only up to a point, after which we'll need multiple machines working on the same problem.
+    \item For example, it takes roughly 4 hours to read 1 TB of data from a commonly used hard disk. Using MapReduce, we can sort 1 TB of data in 62 seconds and a 1 Peta Byte of data in 16.25 hours.
+    \item There are three major parts of Map Reduce.
+    \begin{itemize}
+        \item Mapper - Transforms the input records to (key, value) pairs
+        \item Shuffler - Collects all the intermediates records by key, and assigns them to the reducers by the function hash(key) \% num\_reducers, where num\_reducers is the number of reducers that we have. The only priority of shuffler is to make sure that the records for the correct machines.
+        \item Reducer - Transforms all the records with given key to final output
+    \end{itemize}
+    \item Programmer specifies the map and reduce functions, but he doesn't have to worry about fault tolerance, synchronization and other issues which are taken care of under the hood.
+    \begin{figure}[ht]
+    \begin{center}
+        \includegraphics[width=1\textwidth]{images/wordcount.png}
+        \caption{
+            Taken and edited from the slides}
+        \label{fig:example_figure}
+    \end{center}
+    \end{figure}
+\end{itemize}
+
+
+
+\subsection{Curse of Last Reducer}
+\begin{itemize}
+    \item Suppose we're counting the ticket sales of various movies over a weekend, and we make the name of the movie as a key
+    \item There might be one movie which is a blockbuster and has done a great amount of business, whereas the other movies might have done a mild business
+    \item We'll have to wait for a great time until the tickets for the blockbuster movie have been counted, even when all the other movies have already given counts
+    \item In this case, the idea of map reduce breaks down. The reason is the skewness in the data. To rectify this problem, we should have a clever shuffling step in between. We could even give hints to the system by telling it the name of columns which we expect might take more time. Otherwise, we might have to wait for hours.
+\end{itemize}
+
+\subsection{Hadoop}
+\begin{itemize}
+    \item Hadoop is an open-source implementation of the Map Reduce framework. It was named so after a toy of the developer's kid.
+Hadoop comes along with various utilities/sub-projects like Hadoop Common, Chukwa, HBase, HDFS, Hive, MapReduce, Pig, Zookeeper etc.
+    \item Hadoop streaming is one such utility which allows the user to create and run map/reduce jobs with any executable or script as the mapper and the reducer.
+    \item Higher level languages like Pig and Hive provide robust implementations for many MapReduce operations like filter, sort, join, group\_by, along with allowing custom made map and reduce operations.
+\end{itemize}
+
+
+\end{document}
