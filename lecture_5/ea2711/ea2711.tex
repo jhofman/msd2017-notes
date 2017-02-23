@@ -1,0 +1,118 @@
+
+\section{Guest Lecture}
+
+\subsection{What is data visualization?}
+\begin{itemize}
+  \item "The use of computer-generated interactive visual representations to amplify cognition."
+  \item The goal of visualizations is to develop and support hypothesis, and to inspire and convince others
+\end{itemize}
+
+\subsection{Exploratory data analysis}
+There are multiple methods of showing data
+\begin{itemize}
+  \item Plain data -- very difficult to perceive patterns and make sense of data
+  \item Summary-statistics, e.g. mean, median, etc. -- can get an intuitive understanding
+  \item Plot Data -- can identify patterns and trends
+\end{itemize}
+To create a visualization, we must record data, analyze data, and communicate the findings to the community.
+
+\subsection{What makes "good" visualizations?}
+
+Identify which dimensions of data should be matched to which areas
+\subsubsection{Design Principles}
+\begin{itemize}
+    \item Expressiveness
+        \begin{itemize}
+            \item express all the facts/info in the set of data, nothing less and nothing more
+            \item choose correct type of chart -- ex. a scatter plot cannot express a one to many relation
+        \end{itemize} 
+    \item Effectiveness
+    \begin{itemize}
+        \item More effective if information can be conveyed more quickly
+        \item Easy to understand
+    \end{itemize} 
+\end{itemize}
+Some things to remember about visualizations:
+\begin{itemize}
+    \item Tell the truth and nothing but the truth -- i.e. Don't lie!
+    \item Use encodings that people decode better
+    \item Not all visual encodings are equal
+    \begin{itemize}
+        \item Some may contain biases for example
+    \end{itemize}
+\end{itemize}
+
+\subsection{Visualization Effectiveness}
+Steven's Power law \[S = I^p\]
+where S is the perceived sensation, I is the physical intensity and p is the exponential relation. 
+\subsubsection{Perception Biases}
+\begin{itemize}
+    \item Area - we underestimate large areas over small areas 
+    \item Perception of shock increases quicker than the actual level of shock
+    \item We perceive length and position well, much better than color saturation or pie charts (Cleveland and McGill Experiment)
+    \item We can actually rank human perception biases
+\end{itemize}
+
+\subsubsection{Data Types}
+\begin{itemize}
+    \item \textbf{Normal} -- non intrinsic ordering -- eye color, gender, etc.
+    \item \textbf{Ordinal} -- contains a natural ordering -- socioeconomic class, month, etc.
+    \item \textbf{Quantitative} -- is described numerically
+\end{itemize}
+
+\subsubsection{Other Decisions}
+\underline{Color}
+\begin{itemize}
+    \item How should I color my plot? -- not all colors are equal
+    \item Choose colors that maintain distinguishability
+    \item Small changes in color should correlate with proportional changes in value
+\end{itemize}
+\underline{Tools}
+\begin{itemize}
+    \item There is a tradeoff between speed and expressiveness
+    \item Declarative Encoding Languages
+    \begin{itemize}
+        \item program by describing \textit{what} not \textit{how}
+        \item separate specification from execution
+        \item examples are: HTML/CSS, SQL, D3
+        \item Advantages
+        \begin{itemize}
+            \item faster iteration
+            \item performance
+            \item reuse-ability 
+            \item portability
+        \end{itemize}
+        \item Disadvantages
+        \begin{itemize}
+            \item debugging is difficult
+        \end{itemize}
+    \end{itemize}
+    \item The Grammar of Graphics
+    \begin{itemize}
+        \item Set of principles for graphical APIs
+        \item "Don't give a pie, give primitives to make a pie and more"
+        \item Provide small tools that provide more flexibility and customization
+    \end{itemize}
+\end{itemize}
+
+\section{ggplot}
+Visit the \href{https://github.com/jhofman/msd2017/blob/master/lectures/lecture_5/visualization_with_ggplot2.ipynb}{\underline{Jupyter Notebook}} for exact source code, some observations are listed here.
+\begin{itemize}
+    \item Purpose of a plot is to communicate a ~10 word point 
+    \item Use geoms to represent data points, use aes() function to add aesthetics, variables, axes, etc. 
+    \item Pipe commands using '+' not '\%$>$\%' -- the data frame will default to first argument
+    \item When using aes(), order of arguments doesn't matter -- they are added just as descriptors
+    \item \textbf{geom\_histogram()} -- implicit stat counting happening, then maps the count for you
+    \begin{itemize}
+        \item Be sure to specify the number of bins -- If you don't, some random number will be assumed and a warning will be thrown    
+        \item Identifies categorical variabels and maps them to bins if needed
+    \end{itemize}
+    \item \textbf{geom\_smooth()} -- fits a model to the data
+    \begin{itemize}
+        \item specify method="ln" to force linear model
+    \end{itemize}
+    \item \textbf{geom\_density()} -- fill in plot
+    \item Be careful what to include in aes() -- if it is a constant, best to keep it out of the aesthetic mappings
+    \item Be careful when using xlim -- may either zoom into the plot, or eliminate points from computation
+    \item R will default categorical axes to alphabetical ordering -- often it is better to change this to something that conveys pattern/point better
+\end{itemize}

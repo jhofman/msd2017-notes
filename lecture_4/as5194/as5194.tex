@@ -1,22 +1,3 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
-
-\usepackage{graphicx} %package to manage images
-\graphicspath{ {images/} }
-
-\title{
-Lecture 4: MapReduce: Counting at Scale \\  % Lecture title
-Modeling Social Data, Spring 2017 \\   % Course title
-Columbia University                    % School
-}
-
-\author{Anant Sharma}                     % Scribe's name
-\date{February 16, 2017}                % Lecture date
-
-\begin{document}
-
-\maketitle
-
 \section{Combining and Reshaping Data}
 
 \subsection{GroupBy}
@@ -45,32 +26,21 @@ Columbia University                    % School
             \item Returns all the records of the left table, even if they might not have matches with the right table
             \item Not symmetric
         \end{itemize}
-        \begin{itemize}
-        \end{itemize}
         \item Right Join
         \begin{itemize}
             \item Complement of left join; returns all the records of the right table, even if they don't have matches with the left table
             \item Not symmetric
-        \end{itemize}
-        \begin{itemize}
-            
         \end{itemize}
         \item Full Join
         \begin{itemize}
             \item Combines both left and right join in a way; doesn't drop any records and returns missing values for unmatched values
             \item Symmetric
         \end{itemize}
-        \begin{itemize}
-            
-        \end{itemize}
         \item Anti Join
         \begin{itemize}
             \item Opposite of inner join; shows the rows in first table which don't have a match with the second table
             \item Shows what's being dropped; can be checked to see if any rows were dropped from the left table(number of rows in anti-join should be zero)
             \item Not symmetric
-        \end{itemize}
-        \begin{itemize}
-            
         \end{itemize}
 \end{itemize}
 
@@ -124,6 +94,3 @@ Hadoop comes along with various utilities/sub-projects like Hadoop Common, Chukw
     \item Hadoop streaming is one such utility which allows the user to create and run map/reduce jobs with any executable or script as the mapper and the reducer.
     \item Higher level languages like Pig and Hive provide robust implementations for many MapReduce operations like filter, sort, join, group\_by, along with allowing custom made map and reduce operations.
 \end{itemize}
-
-
-\end{document}
