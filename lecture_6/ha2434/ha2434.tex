@@ -1,0 +1,156 @@
+ \section{Regression Task}
+We have a set of predictors (also called inputs or features) $\{x_{i}\}^{N}_{i=1}$ with their corresponding outcomes $\{y_{i}\}^{N}_{i=1}$ where each $x_{i}$ is a $k$ dimensional vector. We want to learn a function $f$ from the data such that 
+\begin{equation}
+\hat{y}=f(x)
+\end{equation}
+where $\hat{y}$ is our prediction.
+\\To evaluate how well $f$ predicts, we define a loss function. 
+\section{Loss Function}  
+The squared loss $L[f]$ is given by
+\begin{equation}
+L_{i}[f]=(y_{i}-\hat{y}_{i})^{2}
+\end{equation}
+where $\hat{y}_{i} = f(x_{i})$
+Then the total loss over all the N data vectors is
+\begin{equation}
+L[f]=\frac{1}{N}\sum_{i=1}^{N}{L_{i}[f]}=\frac{1}{N}\sum_{i=1}^{N}{(y_{i}-f(x_{i}))^{2}}
+\end{equation}
+It may seem a bit abstract why we are using this particular loss function and where it came from. To study the motivation behind this, we define the Maximum Likelihood. 
+\section{Maximum Likelihood Estimation}
+There are two steps to define the MLE: 
+\begin{itemize}
+\item Assume some family of probabilistic  models generated from the data.
+\item Find the model under which the observed data is most likely.
+\end{itemize}
+This can be mathematically framed as
+\begin{equation}
+f^{*}=\arg\max_{x}p(D|f)
+\end{equation}
+A common assumption is
+\begin{equation}
+y_{i}=f(x_{i})+\epsilon_{i}
+\end{equation}
+where, $\epsilon_{i}=N(0,\sigma^2)$ is normally distributed additive noise. 
+Thus,
+\begin{equation}
+P(\epsilon_{i}|f)=P(y_{i}-f(x_{i})|f)=\frac{1}{\sqrt{2\pi \sigma^2}}exp(-\frac{1}{2\sigma^2}(y_{i}-f(x_{i}))^2)
+\end{equation}
+The likelihood is then given by
+\begin{equation}
+P(D|f)=\prod_{i=1}^{N}{ P(\epsilon_{i}|f)}=(2\pi \sigma^2)^{-N/2}exp(-\frac{1}{2\sigma^2}\sum_{i=1}^{N}{(y_{i}-f(x_{i}))^2})
+\end{equation}
+Noticing that the exponents form a sum, we can instead take the log likelhood to simplify the expression. Moreover, since the log function is a monotonically increasing function, this will not affect the optimal solution.
+\begin{equation}
+\log{P(D|f)}=-\frac{N}{2}\log{2\pi \sigma^{2}}-\frac{1}{2\sigma^2}\sum_{i=1}^{N}{(y_{i}-f(x_{i}))^2}
+\end{equation}
+A closer inspection tells us that the first term is independent of $f$ and the second term is nothing but a scaled version of the loss function $L[f]$ as defined earlier. Therefore, we can conclude that minimizing the squared loss is equivalent to maximizing the (log) likelihood assuming additive Gaussian  noise. 
+\section{Finding f(x)}
+Note on matrix notation: 
+\begin{itemize}
+\item $X$ is a $N$x$k$ matrix where each column $X_{i}$ is the $i^{th}$ feature of all data points $x_{1} \cdots x_{N}$ and the first column $X_{1}$ corresponds to the intercept and is equal to 1
+\item $w$ is a $k$x$1$ column matrix where the first element corresponds to the bias. 
+\item $y$ is a $N$x$1$ column matrix where $y_{i}$ is the predictor for the $i^{th}$ data point $x_{i}$
+\end{itemize}
+To find $f$, we assume a linear model in the weight vector $w$
+\begin{equation}
+\hat{y}=f(x)=Xw
+\end{equation}
+For a single data point, this can be written as
+\begin{equation}
+\hat{y_{i}}=f(x_{i})=x_{i}^{T}w=w_{1}x_{i1}+w_{2}x_{i2}+ \cdots +w_{k}x_{ik}
+\end{equation}
+Now the task of finding $f$ boils down to finding $k$ numbers $w_{1} \cdots w_{k}$. This is known as a parametric model. 
+\begin{equation}
+w^{*}=\arg\min_{w}\frac{1}{N}\sum_{i=1}^{N}{(y_{i}-wx_{i})^{2}}
+\end{equation}
+\\This can be done in any one of the following ways each of which has its own limitations and use-cases. 
+\subsection{Brute Force}
+This is the most naive method which is generally not feasible in many practical problems. In this, all possible values of $w$ are tried and the one at which the loss function is minimum is chosen to be the optimal $w^{*}$. As the dimension of the weight vector increases, the number of possible choices of $w$ also increases exponentially, and this can become a near-impossible task. 
+\subsection{Normal Equations}
+In this we try to minimize the loss function by equating its gradient w.r.t $w$ to zero. 
+\begin{equation}
+\frac{\partial L}{\partial w}=\frac{1}{N}\sum{\frac{\partial}{\partial w} (y_{i}-wx_{i})^{2}}=0
+\end{equation}
+Solving this, we get
+\begin{equation}
+\frac{\partial L}{\partial w}=-\frac{2}{N}\sum_{i=1}^{N}{(y_{i}-wx_{i})x_{i}}=0
+\end{equation}
+In matrix notation, this can be written as
+\begin{equation}
+X^{T}(y-Xw)=0
+\end{equation}
+This gives, 
+\begin{equation}
+\hat{w}=(X^{T}X)^{-1}X^{T}y
+\end{equation}
+This is called Normal Equation.
+\subsubsection{Cost}
+Analyzing the cost in terms of running time we get: 
+\begin{itemize}
+\item $X^{T}y=O(kN)$
+\item $X^{T}X=O(k^{2}N)$
+\item $(X^{T}X)^{-1}=O(k^{3})$
+\end{itemize}
+Thus, the total cost is $O(k^{2}N+k^{3})$. This is good if $k$ is small (of the order 100). However, when $k$ is very large this will take too much time to compute. Thus, this method is not suitable for very wide data ($k>>N$). 
+\subsection{Batch Gradient Descent}
+Instead of directly computing $w^{*}$ which corresponds to the $w$ at the minima of the loss function, we can take an iterative approach. This is based on the idea that if we start from some (random) point and follow the loss surface, we will eventually get to the bottom of it. Since gradient gives the direction of steepest ascent, we follow the direction of the negative of gradient which gives the direction of steepest descent. Thus, the updation step to calculate the new weight vector becomes:
+\begin{equation}
+w=w-\eta \frac{\partial L}{\partial w}
+\end{equation} 
+where, $w$ is the current weight vector, $\frac{\partial L}{\partial w}$ is the gradient evaluated at the current weight vector and $\eta$ is the step size which controls how big the step is.  
+\\ Note on step size:
+\begin{itemize}
+\item Larger $\eta$ results in bigger steps and thus, care must be taken to not overshoot the minima.  
+\item Smaller  $\eta$ results in smaller steps and too small $\eta$ can take really long to reach the minima. 
+\end{itemize}
+Substituting the gradient in equation(16), we get: 
+\begin{equation}
+w=w+\eta \frac{2}{N} X^{T}(y-Xw)
+\end{equation}
+where, $X^{T}(y-Xw)$ is a vector of residuals (errors) that takes the error on each example, multiplies it with the $k^{th}$ feature and averages it over all the samples.   
+\subsubsection{Cost}
+Analyzing the cost per iteration in terms of running time we get:
+\begin{itemize}
+\item $Xw=O(kN)$
+\item $y-Xw=O(N)$
+\item $X^{T}(y-Xw)=O(kN)$
+\end{itemize}
+Thus, the total cost per iteration is $O(kN)$. This is good (and better than the previous methods) as long as we can converge in a few steps. 
+\subsection{Stochastic Gradient Descent}
+While batch gradient descent follows the gradient, stochastic gradient descent follows an approximation of the gradient. This can be understood by examining that the gradient as given by
+\begin{equation}
+\frac{\partial L}{\partial w}=-\frac{2}{N} \sum_{i=1}{N}{(y_{i}-wx_{i})x_{i}}
+\end{equation}
+is an average of $N$ observations and therefore, we can just take a subset of the $N$ observations to get a stochastic estimate of the gradient.  
+\\Thus, stochastic gradient descent take a random sample set of $n$ observations where $n \leq N$ to estimate the gradient. 
+\begin{equation}
+\frac{\partial L}{\partial w}=-\frac{2}{n} \sum_{i=1}{n}{(y_{i}-wx_{i})x_{i}}
+\end{equation}
+Although this is not always exactly equal to the actual gradient, however, it isn't too far off and on an average we usually move in the right direction and eventually reach the minima. In practice, $n=1$ that is, estimating the gradient using just a single example also works surprisingly well. The step size $\eta$, is generally made smaller to guarantee convergence. 
+\subsubsection{Cost}
+Analyzing the cost per iteration in terms of running time we get:
+\begin{itemize}
+\item $Xw=O(kn)$
+\item $y-Xw=O(n)$
+\item $X^{T}(y-Xw)=O(kn)$
+\end{itemize}
+Thus, the total cost per iteration is $O(kn)$. However, we need more iterations now as compared to batch gradient descent.  
+\\ If we have a lot of samples, stochastic gradient descent works much better, however, with fewer examples it is not a good choice. 
+\subsection{Second Order Derivative methods}
+In some methods such as the Newton's method, second order derivative of the loss function is calculated to estimate the curvature of the surface. This is because the curvature of the surface can give useful information for tuning the step size. For example, when the surface is flat, we can afford to take big jumps, on the other hand, when the surface is steep we should take smaller steps. However, calculating the second order derivative is computationally expensive and is done only if enough resources are available and if the gradient descent either takes too long or does not converge at all. 
+\section{Additional notes on R Example}
+\begin{itemize}
+\item In heavy tail distribution, log-scale is a better option as it can offer more insights into the data and its distribution. 
+\item When the data is heavily skewed, median is more indicative than mean. 
+\item Geometric mean (in log space) and median are very close in terms of numerical value. For this reason, many times the median is estimated by calculating the geometric mean which offers the advantage of being easier to compute and can also be calculated in a streaming setting.  It is given by 
+$ 10^{Mean(\log_{10}{x})}$
+\item Data can be transformed by applying a function $\phi(x)$ without changing anything else. 
+\begin{equation}
+f(x)=wx \Rightarrow f(x)=w \phi(x)
+\end{equation}
+Depending on $\phi(x)$, $f(x)$ can also be non-linear in $x$. The squared loss is then given by 
+\begin{equation}
+L[f]=\frac{1}{N} \sum_{i=1}^{N}{(y_{i}- w\phi(x_{i}))^{2}}
+\end{equation}
+which is still quadratic in $w$ and hence, the problem remains the same. 
+\end{itemize}
