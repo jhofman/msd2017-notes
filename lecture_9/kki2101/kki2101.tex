@@ -3,7 +3,7 @@
 %----------------------------------------
 
 \section{Naive Bayes}
-Here we saw Naive Bayes (independent assumption over all words). We predict class c given features $x \in{0, 1}^{k}$
+Here we saw Naive Bayes (independent assumption over all words). We predict class c given features. 
 
 Bayes Rule:
 \begin{equation}
@@ -15,7 +15,7 @@ p(\bar{x}|c)=\prod_{j}{ p(x_{j}|c)}
 \end{equation}
 and then we have:
 \begin{equation}
- p(\bar{x}|c)=\prod_{j}{ p(x_{j}|c)}\times{p(c)/p(\bar{x})}
+ p(c|\bar{x})=\prod_{j}{ p(x_{j}|c)}\times{p(c)/p(\bar{x})}
 \end{equation}
 
 $p(x_{j}|c)$ models a a coinflip (i.e. Bernoulli)
@@ -57,11 +57,11 @@ Calculate $\theta_{j}$
 To do this we will take the derivative of the log-likelihood of the probability of seeing n heads:
 
 \begin{equation}
-0 = \frac{n}{\theta} + \frac{n - N}{1 - \theta}
+0 = \frac{n}{\theta} + \frac{N - n}{1 - \theta}
 \end{equation}
 
 \begin{equation}
-\theta_{j1}=\frac{n_{j1}}{n_{1}}=\frac{\textnormal{num of spam docs w/ word j}}{\textnormal{num of total docs}}
+\theta_{j1}=\frac{n_{j1}}{n_{1}}=\frac{\textnormal{num of spam docs w/ word j}}{\textnormal{num of spam docs}}
 \end{equation}
 
 \begin{equation}
@@ -98,7 +98,7 @@ L= -\sum_i[y_iw\cdot x -(\log{1 + e^{w \cdot x}})]
 
 We set the derivative to zero to find the max likelihood and end up with:
 \begin{equation}
-0 = -\sum_i[y_iw\cdot x -(\frac{1}{1 + e^{w \cdot x}})]x_{ik}
+0 = -\sum_i[y_i\cdot x -(\frac{1}{1 + e^{w \cdot x}})]x_{ik}
 \end{equation}
 
 We use Gradient Descent, since no solution exists:
@@ -144,13 +144,21 @@ p = \frac{1}{1+e^{-w\cdot x}}
     \caption{
       A Confusion Matrix (from WS02). 
       }
-    \label{fig:example_figure}
+    \label{fig:example_figure2}
   \end{center}
 \end{figure}
 
-
-
-
+\item Receiver Operating Characteristic (ROC) curve: ROC curve plots the true positive rate and the false positive rate
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/pic3.png}
+    \caption{
+      ROC Curve (from Wikipedia). 
+      }
+    \label{fig:example_figure3}
+  \end{center}
+\end{figure}
 \end{itemize}
+
 
 
