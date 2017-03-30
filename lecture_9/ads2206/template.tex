@@ -1,0 +1,73 @@
+%----------------------------------------
+% Preamble to set up the document
+%----------------------------------------
+\documentclass{article}
+
+% set up packages (you shouldn't need to touch this)
+\usepackage{graphicx}  % required to insert images
+\usepackage{hyperref}  % for hyperlinks
+\usepackage[svgnames]{xcolor}  % to change hyperlink colors
+\colorlet{linkcolour}{DarkBlue}
+\hypersetup{colorlinks=true, linkcolor=linkcolour, citecolor=linkcolour, urlcolor=linkcolour,}
+% -------------------------------------------------
+% added some packages I like
+\usepackage{amsmath,amssymb,psfrag,epsfig,boxedminipage,helvet,theorem,endnotes,version,enumerate,environ,rotating}
+\newcommand{\remove}[1]{}
+\setlength{\oddsidemargin}{-.2in}
+\setlength{\evensidemargin}{-.2in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-0.8in}
+\setlength{\textheight}{9.5in}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}  
+\usepackage{pifont}
+\usepackage[leqno]{amsmath}
+\usepackage{tikz}
+% -------------------------------------------------
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% use a sans serif font
+\renewcommand{\familydefault}{\sfdefault}
+
+%----------------------------------------
+% Step 1: Edit the lecture title
+%----------------------------------------
+\title{
+Lecture 9: Classification II: Logistic Regression \\  % Lecture title
+Modeling Social Data, Spring 2017 \\   % Course title
+Columbia University                    % School
+}
+
+%----------------------------------------
+% Step 2: Edit your name and the date
+%----------------------------------------
+\author{Andres Soto}                     % Scribe's name
+\date{March 24, 2017}                % Lecture date
+
+\begin{document}
+
+\maketitle
+
+
+%----------------------------------------
+% Step 3:
+% Rename uni.tex to match your uni,
+% edit the filename accordingly below,
+% and put your notes in this file
+%----------------------------------------
+\input{ads2206.tex}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
