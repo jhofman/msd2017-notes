@@ -2,7 +2,7 @@
 % Write your notes here
 %----------------------------------------
 
-\section{Part I - Classification Continued}
+\section{Classification Continued}
 \subsection{Naive Bayes}
 
 We saw that Naive Bayes fundementally was ``Naive'' due in part by the naive assumption that each feature was independent from each other conditioned on their class.  
@@ -253,21 +253,147 @@ We are essentially shrinknig our weight before we move against the gradient.
 
 \section{ Model Evaluation}
 
+This section focuses on developing new ideas/measurements and evaluation techniques to better understand the performance of our classifier.  \\
+
 Last time we saw the following definitions of accuracy and calibration: 
 
-\textbf{Accuracy: } Fraction of times you predict the correct label.
+\textbf{Accuracy: } Fraction of times you predict the correct label. $\frac{1}{N} \sum_i \mathbf{1}(y_i = f(x_i) )$
 
 \textbf{Calibration: } how often does a event with predicted probability $p$ occur?  
 
+The motivation behind moving beyond the accuracy metric is that in general datasets are heavily imbalanced and this can heavily skew percentages.  
+
+We were presented with the confusion matrix which looks like the following figure: 
 
 
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/confusion_matrix.png}
+    \caption{
+      A confusion matrix. \textit{Source: https://computersciencesource.wordpress.com/2010/01/07/year-2-machine-learning-confusion-matrix/}}
+    \label{Figure 2}
+  \end{center}
+\end{figure}
+
+\pagebreak
+
+The variables in the confusion matrix stand for the following:  
+
+\begin{itemize}
+\item \textbf{True Positive (TP): }  We predict 1 while the class is actually 1 i.e we predict a class accurately to be positive when it is actually 1. 
+
+\item \textbf{False Positive (FP): } We predict 1 while the class is actually 0 i.e we incorrectly predict a class to be positive when it is in fact positive.  
+
+\item \textbf{True Negative (TN): } We predict 0 while the class is actually 0 i.e we correctly predict a class is negative (part of class 0). 
+
+\item \textbf{False Negative (FN): } We predict 0 while the class is actually 1 i.e we incorrectly predict a class that is in fact in class 1 or positve as negative or in class 0.  
+
+\end{itemize}
+With this concept in mind, we defined some more terms: 
+
+\begin{itemize}
+\item \textbf{Precision: } Fraction of positive predictions that are true 
+$$\text{Precision } =  \frac{\text{TP}}{\text{TP} + \text{FP}}$$
+
+\item \textbf{True Positive Rate (TPR): } also known as sensitivity, hit rate, and recall is defined as
+$$
+\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}}
+$$
+This metric corresponds to the proportion of data points that were correctly classified as positive with respect to all positive points.The higher TPR, the fewer positive points our classifier will miss.
+
+\item \textbf{False Positive Rate (FPR): } also known as fall-out
+
+$$
+\text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}}
+$$
+The proportion of negative points that were incorrectly classified as positive with respect to all negative points.  The higher the FPR, the higher we will misclassify negative points.  
+\end{itemize}
+
+A high recall classifier can get all the spam thats there but also will tag a lot of legitimate email as spam.  
+Highprecision means low recall which is opposite from low precision and high recall.  
+
+\pagebreak
+
+\subsubsection{ROC Curve}
+If we vary our threshold and plot the false positive rate against the true positive rate, we develop the ROC curve, which stands for Receiver Operator Characteristic curve.  The AUC or Area Under the Curve is equivalent to accuracy for balanced classification.  
+
+A ROC curve for a really really good classifier might look like this:  
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/ROC_curve.png}
+    \caption{
+      A confusion matrix. \textit{Source: https://github.com/Columbia-Intro-Data-Science/APMAE4990} 
+      }
+    \label{Figure 3}
+  \end{center}
+\end{figure}
+
+For more information please see the github link in the figure description, under the lectures directory.  
 
 
+\section{Computational Social SCience: Exciting Progress and Future Challenges}
+This talk was given by Duncan Watts who is the author of \textit{6 Degrees: Living in a Connected World} as well as other books and currently principal research scientist at Microsoft Research.  He was a professor in Sociology in Columbia from 2000 to 2007.  
+
+\begin{itemize}
+
+\item social phenomena arise when individuals interact to produce collective behavior (agents of these systems can vary: individuals, compaies, nationes, etc. ).  People comprise these agents at the end of the day and their interactions affect Macro phenomena.  There is a micro-macro relationship that is extremely difficult to understand and quantify.  
+\item This has led to an emerging field of Computational Social Science due in large part by the upsurge of big data from web interactions.  There has been a dramatic increase in scale, scope, and granularity of data.  
+ \begin{itemize}
+ \item search, buy, produce, consumption $\Rightarrow$ digital exhaust/bread crumbs
+ \item the result of all this technological development and digital bread crumbs is computational social science (CSS)
+ \end{itemize}
+\item outline of the talk.  a) illustrate CSS with two types of examples, social contagion with big data and small data with virtual labs - can run experiments online (b) emerging difficulties
+
+\end{itemize}
+
+\subsection{Social Contagion using Big Data}
+a contagion implies large multi-scale, multi-step, peer-to-peer spread and multi-generational branching process (Diffusion, Going Viral, ebola virus)
+
+ \begin{itemize}
+ \item usually a S shaped curve implies diffusion but there are lots and lots of models that generate S shaped curves so there are two principal problems here.  1) could result from many processes and 2) typically, our observation of these processes is only for successful diffusive events.  This motivates a strong understanding of unsuccessful attempts of diffusion.  
+ 
+ $\Rightarrow$ the web potentially resolves this problem
+ How diverse is going viral?  
+ What does viral diffusion look like? 
+ Can we predict it? 
+\end{itemize}
+
+\subsection{Online Diffusion Project}
+\begin{itemize}
+\item this project involved created 6 seemingly unrelated projects conducted over the past few years all of which were designed to go viral.  They were in different domains which was important and the goal was to see if there were any patterns in the diffusion.  
+
+They ultimately found that diffusion is of course a rare event but that the structure of diffusion is highly similar from one event to another event.  There was a lot of consistency in terms of the most common structures.  
+\end{itemize}
+
+\subsection{Viral or Just Popular - Structural Virality Project}
+\begin{itemize}
+\item Big data helps to study rare events.  fore each event, one can quantify its structural virality.   Shortest paths range from 2 to $\log(N)$
+
+For popular events, one can ask, what diversity do we see with respect to structure? 
+what is the relationship between size and structural virality? 
+
+\item they found an incredible diversity of structural virality and that a popular event is not necessarily viral (broadcasting effect e.g Superbowl isnt a viral event)
+\item popularity is driven mostly by the size of the biggest broadcaster.  Indiviudal people can broadcast (celebrity effect)
+\end{itemize}
 
 
+\subsection{How predictable are cascades?}
+\begin{itemize}
+\item What features drive cascade size?  
+\item Goal is to predict final number of retweets of tweets with URLs.  Restrit to 100 per domain
 
+\item features: content, user, content-user interaction $\Rightarrow$ user features are much more predictive than content (interactions add nothing really)
 
+performance asymptotes around 4 (basis of potential existence of a limit)
 
+suggests that predictive accuracy may be subject to some fundemental limit
+
+\end{itemize}
+ 
+
+\subsection{Virtual Lab}
+Social media limits the types of questions one can ask.  Virtual labs try to tackle more tradiitonal challenges of physical labs such as problems like realism, duration and scale. 
 
 
 
