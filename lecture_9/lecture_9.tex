@@ -1,0 +1,70 @@
+%----------------------------------------
+% Preamble to set up the document
+%----------------------------------------
+\documentclass{article}
+
+% set up packages
+\usepackage{graphicx}  % required to insert images
+\usepackage{hyperref}  % for hyperlinks
+\usepackage[svgnames]{xcolor}  % to change hyperlink colors
+\colorlet{linkcolour}{DarkBlue}
+\hypersetup{colorlinks=true, linkcolor=linkcolour, citecolor=linkcolour, urlcolor=linkcolour,}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{qtree}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage{fixltx2e}
+\usepackage{float}
+\usepackage{amssymb}
+%\usepackage{amsmath,amssymb,psfrag,epsfig,boxedminipage,helvet,theorem,endnotes,version,enumerate,environ,rotating}
+
+% magic to include figures/ subdirectories in graphicx search path
+% http://tex.stackexchange.com/a/172327
+\usepackage{subfiles}
+\makeatletter
+\let\org@subfile\subfile
+\renewcommand*{\subfile}[1]{%
+  \filename@parse{#1}% LaTeX's file name parser
+  \expandafter
+  \graphicspath\expandafter{\expandafter{\filename@area}}%
+  \org@subfile{#1}%
+}
+\makeatother
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+% use a sans serif font
+\renewcommand{\familydefault}{\sfdefault}
+
+\title{
+Lecture 9: Classification, Part 2 \\  % Lecture title
+Modeling Social Data, Spring 2017 \\   % Course title
+Columbia University                    % School
+}
+
+\date{March 24, 2017}                % Lecture date
+
+%----------------------------------------
+% Main document
+%----------------------------------------
+\begin{document}
+
+\maketitle
+
+%----------------------------------------
+% Include each uni.tex as a subfile
+%----------------------------------------
+
+\pagebreak \newpage \noindent\Huge{Notes from ads2206} \normalsize \setcounter{section}{0} \subfile{ads2206/ads2206.tex}
+\pagebreak \newpage \noindent\Huge{Notes from kki2101} \normalsize \setcounter{section}{0} \subfile{kki2101/kki2101.tex}
+\pagebreak \newpage \noindent\Huge{Notes from np2577} \normalsize \setcounter{section}{0} \subfile{np2577/np2577.tex}
+\pagebreak \newpage \noindent\Huge{Notes from syh2115} \normalsize \setcounter{section}{0} \subfile{syh2115/syh2115.tex}
+
+\end{document}
