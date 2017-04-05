@@ -26,13 +26,13 @@ Here $c$ denotes a certain class.  In this case, $c \in \{ \text{spam}, \text{no
 
 The naive part of Naive Bayes says: 
 $$
-P(\mathbf{x} | c ) = \prod\lines_{i=1}^D P(x_i | c) 
+P(\mathbf{x} | c ) = \prod_{i=1}^D P(x_i | c) 
 $$
 
 Consequrently (1) becomes, 
 
 \begin{equation}
-P(c | \mathbf{x}) = \prod\lines_{i=1}^D P(x_i | c)  \frac{P(c)}{P(\mathbf{x})}
+P(c | \mathbf{x}) = \prod_{i=1}^D P(x_i | c)  \frac{P(c)}{P(\mathbf{x})}
 \end{equation}
 
 We model each term in the series of products to be a coin flip.  In other words, $P(x_j | c)$ will represent the distribution of a Bernoulli random variable $X_j$, which we will have an associated parameter $\theta_{jc}$. $\theta_{jc}$ represents the probablity that the jth word appears under class $c$. 
@@ -44,25 +44,25 @@ P(x_j | c ) = \theta_{jc}^{x_j} (1 - \theta_{jc}^{1 - x_j})
 With this in mind and denoting $P(c) = \theta_c$, we plug this back into (2) and take the log of the Likelihood to get: 
 
 $$
-\log(p(c | \mathbf{x})) = \log \left ( \prod\lines_{i=j}^D \theta_{jc}^{x_j} (1 - \theta_{jc}^{1 - x_j})  \frac{P(c)}{P(\mathbf{x})} \right) = \log \left ( \prod\lines_{i=j}^D \theta_{jc}^{x_j} (1 - \theta_{jc}^{1 - x_j} \right) + \log \left( \frac{\theta_c}{P(\mathbf{x})} \right)
+\log(p(c | \mathbf{x})) = \log \left ( \prod_{i=j}^D \theta_{jc}^{x_j} (1 - \theta_{jc}^{1 - x_j})  \frac{P(c)}{P(\mathbf{x})} \right) = \log \left ( \prod_{i=j}^D \theta_{jc}^{x_j} (1 - \theta_{jc}^{1 - x_j} \right) + \log \left( \frac{\theta_c}{P(\mathbf{x})} \right)
 $$
 
 $$
-\Rightarrow \sum\lines_{j=1}^D \log[ \theta_{jc}^{x_j} (1 - \theta_{jc})^{1-x_j}] + \log \frac{\theta_c}{P(\mathbf{x})} = \sum\lines_{j=1}^D x_j \log \theta_{jc} + \sum\lines_{j=1}^D (1-x_j) \log(1 - \theta_{jc}) + \log \frac{\theta_c}{P(\mathbf{x})}
+\Rightarrow \sum_{j=1}^D \log[ \theta_{jc}^{x_j} (1 - \theta_{jc})^{1-x_j}] + \log \frac{\theta_c}{P(\mathbf{x})} = \sum_{j=1}^D x_j \log \theta_{jc} + \sum_{j=1}^D (1-x_j) \log(1 - \theta_{jc}) + \log \frac{\theta_c}{P(\mathbf{x})}
 $$
 
 $$
-\sum\lines_{j=1}^D x_j \log \theta_{jc} + \sum\lines_{j=1}^D \log(1 - \theta_{jc}) - \sum\lines_{j=1}^D x_j \log(1 - \theta_{jc}) + \log \frac{\theta_c}{P(\mathbf{x})}
+\sum_{j=1}^D x_j \log \theta_{jc} + \sum_{j=1}^D \log(1 - \theta_{jc}) - \sum_{j=1}^D x_j \log(1 - \theta_{jc}) + \log \frac{\theta_c}{P(\mathbf{x})}
 $$
 
 \begin{equation}
-\log(p(c | \mathbf{x})) = \sum\lines_{j=1}^D x_j \log \frac{ \theta_{jc}}{1 - \theta_{jc}} + \sum\lines_{j=1}^D \log(1 - \theta_{jc}) +  \log \frac{\theta_c}{P(\mathbf{x})} 
+\log(p(c | \mathbf{x})) = \sum_{j=1}^D x_j \log \frac{ \theta_{jc}}{1 - \theta_{jc}} + \sum_{j=1}^D \log(1 - \theta_{jc}) +  \log \frac{\theta_c}{P(\mathbf{x})} 
 \end{equation}
 
 To find $P(\mathbf{x})$, we can condition $\mathbf{x}$ on the number of classes and multiply by the respective probabilities of being in that class.  
 
 $$
-P(\mathbf{x}) = \sum\lines_c P(\mathbf{x}, c) = \sum\lines_c P(\mathbf{x} | c) P(c)
+P(\mathbf{x}) = \sum_c P(\mathbf{x}, c) = \sum_c P(\mathbf{x} | c) P(c)
 $$
 
 Restricting ourselves to the 2-class example problem at hand, $c$ can only take values 0 (not spam) or 1 (spam).  Taking the difference in probability between an email being in class 1 and that same email being in class 0, we have: 
@@ -74,24 +74,24 @@ P( c = 1 | \mathbf{x}) - P( c = 0 | \mathbf{x}) ~~ \Rightarrow ~~
 Using equation (4) to calculate $P(c = 1 | \mathbf{x}) $ and $P(c = 0 | \mathbf{x}) $ :
 
 \begin{equation}
-\log P(c = 1 | \mathbf{x}) = \sum\lines_{j=1}^D x_j \log \frac{ \theta_{j1}}{1 - \theta_{j1}} + \sum\lines_{j=1}^D \log(1 - \theta_{j1}) +  \log \frac{\theta_1}{P(\mathbf{x})} 
+\log P(c = 1 | \mathbf{x}) = \sum_{j=1}^D x_j \log \frac{ \theta_{j1}}{1 - \theta_{j1}} + \sum_{j=1}^D \log(1 - \theta_{j1}) +  \log \frac{\theta_1}{P(\mathbf{x})} 
 \end{equation}
 
 \begin{equation}
-\log P(c = 0 | \mathbf{x}) = \sum\lines_{j=1}^D x_j \log \frac{ \theta_{j0}}{1 - \theta_{j0}} + \sum\lines_{j=1}^D \log(1 - \theta_{j0}) +  \log \frac{\theta_0}{P(\mathbf{x})} 
+\log P(c = 0 | \mathbf{x}) = \sum_{j=1}^D x_j \log \frac{ \theta_{j0}}{1 - \theta_{j0}} + \sum_{j=1}^D \log(1 - \theta_{j0}) +  \log \frac{\theta_0}{P(\mathbf{x})} 
 \end{equation}
 
 Taking the difference between (6) and (7) is equivalent to (5). 
 
 $$
-\sum\lines_{j=1}^D x_j \log \frac{ \theta_{j1}}{1 - \theta_{j1}} + 
-\sum\lines_{j=1}^D \log(1 - \theta_{j1}) +  \log \frac{\theta_1}{P(\mathbf{x})} - \left( \sum\lines_{j=1}^D x_j \log \frac{ \theta_{j0}}{1 - \theta_{j0}} + \sum\lines_{j=1}^D \log(1 - \theta_{j0}) +  \log \frac{\theta_0}{P(\mathbf{x})} \right)
+\sum_{j=1}^D x_j \log \frac{ \theta_{j1}}{1 - \theta_{j1}} + 
+\sum_{j=1}^D \log(1 - \theta_{j1}) +  \log \frac{\theta_1}{P(\mathbf{x})} - \left( \sum_{j=1}^D x_j \log \frac{ \theta_{j0}}{1 - \theta_{j0}} + \sum_{j=1}^D \log(1 - \theta_{j0}) +  \log \frac{\theta_0}{P(\mathbf{x})} \right)
 $$
 
 $$
 \Rightarrow \log \frac{  P( c = 1 | \mathbf{x})}{P( c = 0 | \mathbf{x})} = 
-\sum\lines_{j=1}^D x_j \log \frac{ \theta_{j1} ( 1 - \theta_{j0}) }{ \theta_{j0}  (1 - \theta_{j1} ) } + 
-\sum\lines_{j=1}^D \log \frac{ 1 - \theta_{j1} }{ 1 - \theta_{j0}  } +
+\sum_{j=1}^D x_j \log \frac{ \theta_{j1} ( 1 - \theta_{j0}) }{ \theta_{j0}  (1 - \theta_{j1} ) } + 
+\sum_{j=1}^D \log \frac{ 1 - \theta_{j1} }{ 1 - \theta_{j0}  } +
  \log \frac{\theta_1}{\theta_0}
 $$
 
