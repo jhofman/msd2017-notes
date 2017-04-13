@@ -59,7 +59,7 @@ Representations, ie. levels of abstraction
       	\includegraphics[width=0.2\textwidth]{figures/Undirected_friends.png}
       	\caption{
         	Bidirectional friendship (one would hope)}
-    	\label{fig:figure3}
+    	\label{fig:figure2}
   			\end{center}
 		\end{figure}
     \item Directed
@@ -68,7 +68,7 @@ Representations, ie. levels of abstraction
       	\includegraphics[width=0.15\textwidth]{figures/Directed_pg_followers.png}
       	\caption{
         	Directed network, eg. followers of a FB page}
-    	\label{fig:figure4}
+    	\label{fig:figure3}
   			\end{center}
 		\end{figure}
    \item Weighted (the old ARPAnet, the OG Internet, whose edge costs varied)
@@ -108,9 +108,87 @@ Descriptive Stats of Networks:
     \end{tabular}
 \end{center}
 
-
-\subsection{Coding up Networks}
-
+\section{Coding up Networks}
+\begin{itemize}
+	\item Computing degree distribution (ie. How many nodes have 1,2,etc. neighbors?)
+    
+    group by source
+    
+    count \# destination nodes $\rightarrow$ (source,degree)
+    
+    group by degree
+    
+    count \# source nodes
+    
+    \item Computing path length - sometimes we'll need to logscale to handle distributions for which magnitude comparisons make more sense (think celebrities again)
+    
+    BFS: every newly discovered node is at distance, or path length, of one more than the current maximum distance. All pairs' path length $\propto$ \# nodes x \# edges
+    
+    init nodes at $\infty$
+    
+    	\quad source dist 0
+    
+    	\quad curr boundary is source
+    
+    	\quad new boundary is empty
+    
+    explore non-empty boundary
+    
+    loop over all nodes in curr boundary
+    
+    explore each undiscovered neighbor
+    
+    	\quad dist $\leftarrow$ curr dist + 1
+        
+    	\quad add neighbor to boundary 
+        
+    curr boundary $\leftarrow$ next boundary
+    
+    terminate when no more 'next boundary'
+    
+	\item Computing connectedness
+    
+    init nodes at $\infty$
+    
+    pick random unreached node (until no unreached nodes left)
+    
+    run BFS from that node
+    
+    	\quad label everything that's reached as one component
+        
+	\item Counting number of mutual friends for every pair $\propto$ d$^{2}$; that is, the few celebrities among us will kill our computers.
+    
+    We can use an adjacency list - here, it's: i, j1, j2, and j3
+    
+    \begin{figure}[ht]
+    		\begin{center}
+      	\includegraphics[width=0.2\textwidth]{figures/mutual_friends.png}
+      	\caption{
+        	Counting mutual friends}
+    	\label{fig:figure4}
+  			\end{center}
+		\end{figure}
+    
+    for each node:
+    
+    	\quad run over all pairs of its neighbors
+        
+        \quad increment count by 1
+        
+        \item Counting triangles: checking if the j's themselves are connected
+        
+        Now it makes more sense to use an adjacency matrix, which provides a better memory footprint - else, computation is hell.
+        
+        for each node:
+        
+        \quad run over all its neighbors
+        
+        increment node's count if neighbors are connected
+        
+        We can measure how clustered a network is, or how connected a person is, by taking the ratio of number of actual triangles over possible triangles. 
+        
+\end{itemize}
+      
 
 
 
