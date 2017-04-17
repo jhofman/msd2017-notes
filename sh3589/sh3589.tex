@@ -1,0 +1,96 @@
+%----------------------------------------
+% Write your notes here
+%----------------------------------------
+
+\section{Network Analysis Briefing}
+
+\subsection{History}
+Network analysis has a history starting from 1930. The hot topic today is Contagious effect through social networks.
+
+\subsection{Types of Networks}
+Determining which kind of network it is is often the first step towards a social network analysis, since each network type has its unique properties.
+\begin{enumerate}
+  \item Social Networks e.g. Facebook, Twitter networks
+  \item Information Networks e.g. political blogs (instead of relationship of friends, the interactions may only be referring)
+  \item Activity Networks e.g. emails
+  \item Biological Networks e.g. protein interaction clusters
+  \item Geographical Networks e.g. city roads
+\end{enumerate}
+
+\subsection{Levels of Networks}
+\begin{enumerate}
+  \item direction
+  \item weighted e.g. cost of edge movement, cost of communication
+  \item metadata e.g. every other data associated
+\end{enumerate}
+
+\subsection{Which Network}
+Networks can be very different in terms of what you want to convey with it. We can define how strict we are about the what counts as an edge. \\
+For example, whether to include one-way communication or reciprocated communication in an analysis of facebook relationships; In an organization, whether we care more about the hierarchy or the collaboration of the individuals.
+
+\subsection{Data Structure}
+\begin{enumerate}
+  \item Simple Storage. \\
+  Pro: Simple for storage; \\
+  Con: Complex checking
+  \item Adjacency Matrix. \\
+  Pro: Easy checking, constant times; When network is directed, matrix is symmetric. \\
+  Con: Matrix is often sparse and hard for storage.
+  \item Adjacency List. \\
+  Pro: Good for graphing; \\
+  Con: Storage.
+\end{enumerate}
+
+\subsection{Descriptive Statistics}
+\begin{enumerate}
+  \item degree
+  \item path length
+  \item clustering
+  \item component
+\end{enumerate}
+
+\section{Application in R}
+package: igraph
+
+\section{Algorithms for Counting on Networks}
+\subsection{Degree Distribution}
+group by source nodes\\
+count the number of destination nodes to get source degree\\
+group by degree\\
+count the number of source nodes\\
+
+\subsection{Shortest Path Length}
+Basic idea: start with source nodes and explore the neighbors.\\
+\\
+Algorithm: \\
+init nodes at infinity \\
+\indent source dist.0 \\
+\indent current boundary \\
+\indent new boundary is empty \\
+explore non-empty boundaries \\
+loop over all nodes in current boundary \\
+explore each undiscovered neighbors \\
+iterate until no undiscovered neighbors
+
+\subsection{Connected Components}
+init nodes at infinity \\
+pick random unreached nodes \\
+run BFS from that node\\
+\indent label everything reached as one component \\
+repeat until there is no reachable nodes\\
+
+\subsection{Mutual Friends}
+Application: Friend recommendation on social media\\
+\\
+Algorithm: (need adjacency list) \\
+for each node: \\
+\indent run over each pairs of its neighbours, increment by 1 \\
+\\
+This algorithm can get expensive when the adjacency list is long, for instance, celebrity nodes.
+
+\subsection{Counting Triangles}
+(keep adjacency matrix and adjacency list) \\
+for each node: \\
+\indent run over each pairs of its neighbors, increment by 1 \\
+\indent (check adjacency matrix) if neighbors connected
+
