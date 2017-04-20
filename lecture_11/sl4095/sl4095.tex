@@ -1,0 +1,48 @@
+%----------------------------------------
+% Write your notes here
+%----------------------------------------
+
+
+\section{Intro to Causal Inference}
+\textbf{Prediction}: Make a forecast, leaving the world as it is. For example, seeing my neighbor with an umbrella might predict rain.\\
+\textbf{Causation}: Anticipate what will happen when you make a change in the world. However, for the same example in prediction, seeing my neighbor bringing an umbrella doesn't cause the rain.\\
+It's very tempting to ask "what caused Y", but this is "reverse causal inference", and is generally quite hard. Alternatively, we can ask "what happens if we do X?" For example, 
+\begin{itemize}
+\item How does education impact future earnings?
+\item What is the effect of advertising on sales?
+\item How does hospitalization affect health?
+\end{itemize}
+This is "forward causal inference". It's still hard, but less contentious.\\
+\section{Hospitalization on Health}
+Suppose now we have data of people who visit hospital today, and people's health tomorrow, we want to know the effect of going to hospital today over the health of that person tomorrow. Estimating the effect of going to hospital using these observational data is wrong, because the effect and cause might be \textit{confounded} by a common cause, and be changing together as a result. We have people who are healthy today and therefore don't go to hospital, and people who are not healthy today but still don't go to the hospital. We also know that people who go to the hospital typically are the people who are sick. If we only get to observe the data of hospital visit today and health tomorrow changing together, we can't estimate the effect of hospitalization changing alone.\\
+Let's say all sick people in our dataset went to the hospital today, and healthy people stayed home. The observed difference in health tomorrow is:
+\begin{equation}
+\Delta_{obs} = (\textrm{Sick and went to hospital} - \textrm{Sick if stayed home}) + (\textrm{Sick if stayed home}-\textrm{Healthy and stayed home})
+\end{equation}
+The first part is the causal effect, while the second part is the selection bias.
+\section{From data to prediction}
+This is a fundamental problem across science and industry. For science, we want to know what is the effect of doing X, while in industry we would like to know when we should do X.\\
+How does the predictive system work?\\
+First, we see data about user profiles and past activities. For example, for any user, we might see their age, gender, past activity and their social network. People have higher activity tend to have more friends, and people who have lower activity tend to have fewer friends. We would use these correlations to make a predictive model, for example,  Future Activity = $f$(number of friends, logins in past month). Number of friends can predict activity with high accuracy. Now, we want to have "actionable insights", that is, we want to know how do we increase activity of users. There are multiple explanations, and it's hard for us to know what causes what. In order to increase activity, would it make sense to launch a campaign to increase friends?\\
+Another example: Search engines uses ad targeting to show relevant ads. We have prediction model based on user's search query. Search ads have the highest click-through rate in online ads. However, even without search ads, it's also highly possible that we will reach the same website advertised. Therefore without reasoning about causality, we may overestimate the effectiveness of ads.
+\section{Simpson's paradox}
+Selection bias can be so large that observational and causal estimates give opposite effects. Here's an excellent article from Reddit.\\
+\url{https://www.reddit.com/r/Entrepreneur/comments/60ob8w/is_your_data_lying_to_you_the_simpsons_paradox/}
+\section{Experiments!}
+To isolate the causal effect, we have to change on and only one thing, and compare outcomes. For example, in hospital case, we change hospital visits and compare the health tomorrow. In order to avoid selection bias, we randomly assign people who go to the hospital and people who don't. Then the observed difference is just the causal effect. \\
+Even though random assignment is the "gold standard" for causal inference, it has some limitations:
+\begin{itemize}
+\item Randomization often isn't feasible and/or ethical
+\item Experiments are costly in terms of time and money
+\item It's difficult to create convincing parallel worlds.
+\item Inevitably people deviate from their random assignments
+\end{itemize}
+\textbf{Natural experiments}: Sometimes we get lucky and nature effectively runs experiments for us. 
+\begin{itemize}
+\item As-if random: People are randomly exposed to water sources
+\item Instrumental variables: A lottery influences military service
+\item Discontinuities: Star ratings get arbitrarily rounded
+\item Difference in differences: minimum wage changes in just one state
+\end{itemize}
+These natural experiments are great, but they are hard to find, and there are many untestable assumptions.
+
