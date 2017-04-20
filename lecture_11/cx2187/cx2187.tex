@@ -1,0 +1,58 @@
+\section*{Causality and Experiments}
+\begin{flushleft}
+Prediction: Make a forecast, while leaving the world as it is (e.g. seeing someone with an umbrella might indicate that rain is likely) 
+Causation: Anticipate what will happen when you make a change in the world (e.g. giving someone an umbrella doesn't cause it to rain)
+\end{flushleft}
+
+\begin{flushleft}
+We want to make **reverse causal inferences** by finding out what causes an observable change, such as "why did the stock market drop", or "why is this email spam". However, there are often many factors that go into an outcome. We can also look at **forward causal inferences** where we look how changing a variable can impact future outcomes, such as "how does education impact future earnings", or "what is the effect of advertising on sales".
+\end{flushleft}
+
+\begin{flushleft}
+Hospitals -> Better health? There may be confounding variables, e.g. people who visit hospitals tends to have worse health to begin with, but this is unobservable. In such a case, our observational estimate -- e.g. the number of sick people who went to the hospital minus the number of healthy people who stay home -- might seem to indicate that hospitals lead to worse health, which is not true. There are also alternative observational estimates we can measure, e.g. difference between those who opted into treatment, and those who didn't. This is often attributable to selection bias.
+\end{flushleft}
+
+\begin{flushleft}
+Observed difference = causal effect - selection bias, although the difficulty is in determining the extent of selection bias.
+\end{flushleft}
+
+\begin{flushleft}
+Example: How do predictive systems work? We attempt to predict future activity for a user based on their profile and past activity. We posit that future activity = f(number of friends, past logins), but need to turn this into **actionable insight**, i.e. how to increase user activity.
+\end{flushleft}
+
+\begin{flushleft}
+We should always ask the counterfactual, i.e. what would happen if an action were not performed. E.g. websites see a high click rate when they place ads on search engines, but they may achieve the same click rate even when they don't post sponsored content.
+\end{flushleft}
+
+\begin{flushleft}
+Simpson's Paradox: Given a large selection bias, observational and causual estimates might even lead to opposite results, e.g. that going to hospitals makes you less healthy
+\end{flushleft}
+
+\begin{flushleft}
+With Simpson's Paradox, it is possible that overall a new model may perform better on overall data, but worse in all subsets of a data. E.g. a new algorithm might successfully predict 54/1000 outcomes, and 50/1000 outcomes. However, if we looks at low activity users and high activity users, it's possible for the new algorithm to underperform both if our sample sizes for each subset are different.
+\end{flushleft}
+
+\begin{flushleft}
+Simpson's Paradox in Reddit: Average comment length falls over time, but if we plot this based on when a user joins Reddit, their comment length increases instead. There might be several reasons for this, e.g. more people were joining Reddit later, and tended to comment less even though their rate of comments would still increase over time. This brought down the overall average comment length.
+\end{flushleft}
+
+\begin{flushleft}
+The easiest way may be simply to change a variable and observe an outcome, e.g. an experiment or A/B testing. This helps us isolate a causual effect, and establish a counterfactual. Because we cannot create a copy of the real world, we instead use random assignment to create treatment and control groups, based on a randomized coin flip for each individual regardless of their original condition.
+\end{flushleft}
+
+
+\section*{Random Assignment}
+\begin{flushleft}
+If people know they are being measured, they might behave differently from their normal condition, which will influence the test result.
+\end{flushleft}
+
+\subsection*{Two goals for experiments}
+\subsection*{Internal validity (care about confound)}
+\begin{flushleft}
+Ex: Did doctors give the experimental drug to some especially sick patients hoping that it would save them?
+\end{flushleft}
+
+\subsection*{External validity (care about results)}
+\begin{flushleft}
+Ex: Would this medication be just as effective outside of a clinical trial when usage is less rigorously monitored?
+\end{flushleft}
