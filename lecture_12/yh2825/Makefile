@@ -3,4 +3,5 @@
 # from https://github.com/ransford/pdflatex-makefile
 TARGET=template
 FIGS=figures
-include Makefile.include
+include makefile.include
+
