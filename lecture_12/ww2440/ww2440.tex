@@ -1,0 +1,129 @@
+%----------------------------------------
+% Write your notes here
+%----------------------------------------
+
+
+\begin{itemize}
+    \item Random Assignment
+
+
+
+\begin{center}
+--------\\
+$T_i$ \textbar $C_i$\\
+--------\\
+\nearrow \hspace{1cm} \nwarrow\\
+what happens    \hspace{1cm}      what happens\\
+under treatment   \hspace{1cm}       under control\\
+\end{center}
+
+Theoretically, in reality, you can never measure them at the same time.\\
+
+  \hspace*{3.6cm}  --------\\
+Treatment group: \hspace{1cm}$T_i$ \textbar  \textbar \textbar \textbar\\
+  \hspace*{3.6cm}  --------\\
+Average treatment outcome: 
+\begin{equation*}
+    \hat{\overline{\rm T}} = \frac{1}{N_T} \sum_{i}^{} T_i
+\end{equation*}
+\\
+
+  \hspace*{3.6cm}  --------\\
+Control group: \hspace{1.3cm} \textbar  \textbar \textbar \textbar \textbar $C_i$\\
+  \hspace*{3.6cm}  --------\\
+Average control outcome: 
+\begin{equation*}
+    \hat{\overline{\rm C}} = \frac{1}{N_C} \sum_{i}^{} C_i
+\end{equation*}
+\\
+  \\
+Average of random sample is an unbiased estimate, and the average treatment effect is:
+\begin{equation*}
+    A\hat{T}E = \hat{\overline{\rm T}} - \hat{\overline{\rm C}}
+\end{equation*}
+\end{itemize}
+
+
+\begin{itemize}
+    \item Problems
+    \begin{itemize}
+        \item Small sample size: large sample size can reduce SE and lower the chance of the estimate being way too off.
+        \item Researcher degrees of freedom: tend to utilize various method to "mine" the data for a nice result. The hypotheses and analysis method should be set before touching the data.
+        \item Publication bias: the reproducibility is questionable, especially in a field where the power is relatively low.
+        \item P-hacking
+    \end{itemize}
+\end{itemize}
+
+\begin{itemize}
+    \item Power Analysis\\
+    N = sample\, size\\
+    $\alpha$ = significance level = $P$(significance \textbar no effect)\\
+    power = 1 - $\beta$ = $P$(significance \textbar effect) $\Longleftarrow$ chance of detecting a real effect if one exists
+    \begin{itemize}
+        \item How to get hypothesized p-value? Run a pilot study!
+    \end{itemize}  
+\end{itemize}
+
+\begin{itemize}
+    \item Limitation
+    \begin{itemize}
+        \item Sometimes isn't feasible/ethical
+        \item Costly in terms of time and money
+        \item Difficult to create convincing parallel world
+        \item People inevitably deviate from assignment
+    \end{itemize}
+\end{itemize}
+
+
+\begin{itemize}
+    \item Non-Compliance\\
+    \hspace*{0.4cm}  --------\\
+    \hspace*{0.5cm}$T_i$ \textbar $C_i$ \hspace{3cm} Compliers \hspace{3cm} $ATE_c$\\
+    \hspace*{0.4cm}  --------\\
+    \hspace*{0.4cm}  --------\\
+    \hspace*{0.5cm}$T_i$ \textbar $T_i$ \hspace{3cm} Always treats \hspace{2.5cm} $ATE_a = 0$\\
+    \hspace*{0.4cm}  --------\\
+    \hspace*{0.4cm}  --------\\
+    \hspace*{0.5cm}$C_i$ \textbar $C_i$ \hspace{3cm} Never treats \hspace{2.5cm} $ATE_n = 0$\\
+    \hspace*{0.4cm}  --------\\
+     \\
+    $Overall\, ATE = p_c ATE_c + p_a ATE_a + p_n ATE_n = p_c ATE_c$\\
+    Therefore $ATE_c = \frac{Overall\, ATE}{p_c}$\\
+     \\
+     \\
+    In the assigned-to-treatment group:\\
+    \hspace*{0.4cm}  --------\\
+    \hspace*{0.5cm}$T_i$ \textbar \textbar \textbar \textbar \hspace{1cm} Compliers or Always-treats\\
+    \hspace*{0.4cm}  --------\\    
+    \hspace*{0.4cm}  --------\\
+    \hspace*{0.4cm} \textbar \textbar \textbar \textbar \textbar $C_i$ \hspace{0.9cm} Never-treats $\Longleftarrow$ tell people to serve but some don't\\
+    \hspace*{0.4cm}  --------\\  
+     \\
+    In the assigned-to-control group:\\
+    \hspace*{0.4cm}  --------\\
+    \hspace*{0.4cm} \textbar \textbar \textbar \textbar \textbar $C_i$ \hspace{0.9cm} Compliers or Never-treats\\
+    \hspace*{0.4cm}  --------\\    
+    \hspace*{0.4cm}  --------\\
+    \hspace*{0.5cm}$T_i$ \textbar \textbar \textbar \textbar \hspace{1.1cm} Always-treats $\Longleftarrow$ tell people \textbf{not} to serve but some do serve \\
+    \hspace*{0.4cm}  --------\\  
+     \\
+    Fraction accept treatment in treatment group: $p_c + p_a$\\
+    Fraction accept treatment in control group: $p_a$\\
+    Therefore we can get $p_c$ by deducting the second one from the first one: $p_c = (p_c + p_a) - p_a$
+\end{itemize}
+
+\begin{itemize}
+    \item Instrumental Variable\\
+    The effect will break when:
+    \begin{itemize}
+        \item Confound variable influences instrumental variable
+        \item Instrumental variable influences DV 
+    \end{itemize}
+     \\
+    Another example of instrumental variable:\\
+     \\
+    $\overline{\underline{Weather\, in\, city\, A}} \Longrightarrow \overline{\underline{Running\, in\, city\, A}} \Longrightarrow \overline{\underline{Running\, in\, city\, B}} $\\
+     \\
+    The instrumental variable (weather in city A) only changes the probability of IV (Running in city A) so that we can figure out if IV \textbf{causes} DV.
+\end{itemize}
+
